@@ -111,7 +111,7 @@ var getUnanswered = function(tags) {
 		type: "GET",
 		})
 	.done(function(result){
-		var searchResults = showSearchResults(request.tagged, result.items.length);
+		var searchResults = showSearchResults(tags, result.items.length);
 
 		$('.search-results').html(searchResults);
 
