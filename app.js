@@ -131,8 +131,7 @@ var getUnanswered = function(tags) {
 var getAnswerers = function(tags){
 
 	// the parameters we need to pass in our request to StackOverflow's API
-	var request = {tagged: tags,
-				   site: 'stackoverflow',
+	var request = {site: 'stackoverflow',
 				   period: 'month'};
 
 	var result = $.ajax({
@@ -143,7 +142,7 @@ var getAnswerers = function(tags){
 		})
 
 	.done(function(result){
-		var searchResults = showSearchResults(request.tagged, result.items.length);
+		var searchResults = showSearchResults(tags, result.items.length);
 
 		$('.search-results').html(searchResults);
 
@@ -152,7 +151,7 @@ var getAnswerers = function(tags){
 			$('.results').append(answerer); 
 		});
 	})
-	
+
 	.fail(function(jqXHR, error, errorThrown){
 		var errorElem = showError(error);
 		$('.search-results').append(errorElem);
