@@ -70,11 +70,11 @@ var showAnswerer = function(answerer){
 
 	// Set the score property in result
 	var score = result.find('.score-text');
-	score.text(asnwerer.score);
+	score.text(answerer.score);
 
 	// Set the post-count property in result
 	var postCount = result.find('.postCount-text');
-	postCount.text(amswerer.post_count);
+	postCount.text(answerer.post_count);
 
 	return result;
 };
@@ -131,17 +131,17 @@ var getUnanswered = function(tags) {
 var getAnswerers = function(tags){
 
 	// the parameters we need to pass in our request to StackOverflow's API
-	var request = {site: 'stackoverflow',
-				   period: 'month'};
+	var request = {site: 'stackoverflow'};
 
 	var result = $.ajax({
-		url: "http://api.stackexchange.com/2.2/tags/" + tags + "/top-answerers",
+		url: "http://api.stackexchange.com/2.2/tags/" + tags + "/top-answerers/all_time",
 		data: request,
 		dataType: "jsonp",
-		type: "GET",
+		type: "GET"
 		})
 
 	.done(function(result){
+		console.log("Ajax Success");
 		var searchResults = showSearchResults(tags, result.items.length);
 
 		$('.search-results').html(searchResults);
@@ -151,8 +151,8 @@ var getAnswerers = function(tags){
 			$('.results').append(answerer); 
 		});
 	})
-
 	.fail(function(jqXHR, error, errorThrown){
+		console.log("Error thrown");
 		var errorElem = showError(error);
 		$('.search-results').append(errorElem);
 	});
